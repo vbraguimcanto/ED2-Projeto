@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+//falta inserir peso no grafo
 typedef struct tipoLista{
 	int chave;
 	struct tipoLista *prox;
@@ -8,14 +9,47 @@ typedef struct tabelaHash{
 	int indice;
 	tipoLista *primeiro;
 }tabelaHash;
+void buscaProfundidade(tabelaHash *p, int n){
+	int origem, *v, *pilha, i, cont=0, cmp;
+	tipoLista *aux;
+	printf("Digite o no origem: ");
+	scanf("%d", &origem);
+	v = (int *)(malloc(sizeof(int)*n));
+	pilha = (int *)(malloc(sizeof(int)*n));
+	for(i=0;i<n;i++)
+		v[i] = 0;
+	while(cont<n){
+		if(v[origem]==0){
+			v[origem] = 1;
+			pilha[cont] = origem;
+			cont++;
+		}
+		else{
+			aux = p[origem].primeiro;
+			while(aux!=NULL){
+				cmp = (aux->chave);
+				if(v[cmp]==0){
+					origem = cmp;
+					break;
+				}
+				aux = aux->prox;
+			}
+		}
+	}
+	for(i=cont-1;i>-1;i--)
+		printf("%d ", pilha[i]);
+	printf("\n");
+}
+
+
 void insereArestaDirecionada(tabelaHash *p, int n){
 	int origem, destino;
 	tipoLista *aux;
-	printf("Utilize a forma numVertice_origem numVertice_destino\n");
-	printf("Atencao, 0 0 termina a insercao!\n");
+	printf("Utilize a forma numpilhaertice_origem numVertice_destino\n");
+	printf("Atencao, -1 -1 termina a insercao!\n");
 	printf("Digite: ");
 	scanf("%d %d", &origem, &destino);
-	while(origem!=0 && destino!=0){
+	while(origem!=-1 && destino!=-1){
 		if((p[origem].primeiro)==NULL){
 			(p[origem].primeiro) = (tipoLista *)(malloc(sizeof(tipoLista)));
 			((p[origem].primeiro)->chave) = destino;
@@ -35,10 +69,10 @@ void insereArestaNaoDirecionada(tabelaHash *p, int n){
 	int origem, destino;
 	tipoLista *aux;
 	printf("Utilize a forma numVertice_origem numVertice_destino\n");
-	printf("Atencao, 0 0 termina a insercao!\n");
+	printf("Atencao, -1 -1 termina a insercao!\n");
 	printf("Digite: ");
 	scanf("%d %d", &origem, &destino);
-	while(origem!=0 && destino!=0){
+	while(origem!=-1 && destino!=-1){
 		if((p[origem].primeiro)==NULL){
 			(p[origem].primeiro) = (tipoLista *)(malloc(sizeof(tipoLista)));
 			((p[origem].primeiro)->chave) = destino;
@@ -127,7 +161,7 @@ int main(void)
 				insereArestas(p,n);
 				break;
 			case 3:
-				//buscaProfundidade();
+				buscaProfundidade(p,n);
 				break;
 			case 4:
 				//ordenacaoTopologica();
