@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #define MAX 100
 void algoritmoDijkstra(int origem, int destino, int M[][MAX], int n, int *v, int *min, int *via){
-	int i, k, minimo, dist, cost;
-	k = origem;
+    int i, k, minimo, dist, cost;
+    k = origem;
     minimo = 0;
     while(v[destino] != 2){
 	    v[k] = 2;
