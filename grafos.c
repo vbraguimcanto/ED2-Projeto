@@ -26,9 +26,6 @@ void algoritmoDijkstra(int origem, int destino, int M[][MAX], int n, int *v, int
     }
     printf("O menor caminho entre %d e %d: %d\n", origem, destino, min[destino]);
 }
-
-
-
 int *alocaVetor(int n){
 	return (int *)(malloc(sizeof(int)*n));
 }
