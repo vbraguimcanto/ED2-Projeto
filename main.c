@@ -4,7 +4,7 @@
 #define MAX 100
 int main(void)
 {
-	int op, n=0, M[MAX][MAX], i, j, inicio, *v;
+	int op, n=0, M[MAX][MAX], i, j, inicio, *v, origem, destino, via[10], *min;
 	opcoes();
 	scanf("%d", &op);
 	while(op!=0){
@@ -30,7 +30,15 @@ int main(void)
 				//ordenacaoTopologica();
 				break;
 			case 5:
-				//algoritmoDijkstra();
+				printf("Digite a origem e o destino para a busca do menor caminho: ");
+				scanf("%d %d", &origem, &destino);
+				v = alocaVetor(n);
+				min = alocaVetor(n);
+				for(i=0;i<n;i++){
+                	v[i] = 0;
+           		 	min[i] = 99999;
+        		}
+				algoritmoDijkstra(origem,destino,M,n,v,min,via);
 				break;
 			default:
 				printf("OOPs! Opcao Invalida!\n\n\n");

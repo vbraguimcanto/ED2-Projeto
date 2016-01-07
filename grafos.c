@@ -1,6 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX 100
+void algoritmoDijkstra(int origem, int destino, int M[][MAX], int n, int *v, int *min, int *via){
+	int i, k, minimo, dist, cost;
+	k = origem;
+    minimo = 0;
+    while(v[destino] != 2){
+	    v[k] = 2;
+	    for(i=0;i<n;i++){
+	        if(M[k][i] && v[i] != 2){
+	            dist = minimo + M[k][i];
+	            if(dist < min[i]){
+	                min[i] = dist;
+	                via[i] = k;
+	            }
+	            v[i] = 1;
+	        }
+    }
+    minimo = 99999;
+    for(i=0;i<n;i++)
+        if(v[i] == 1 && min[i] < minimo){
+            minimo = min[i];
+            k = i;
+        }
+    }
+    printf("O menor caminho entre %d e %d: %d\n", origem, destino, min[destino]);
+}
+
+
+
 int *alocaVetor(int n){
 	return (int *)(malloc(sizeof(int)*n));
 }
